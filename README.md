@@ -12,58 +12,19 @@ static Example: FC<()> = |(cx, props)| {
 ## Features
 
 - Convert strings to vnodes on the fly with `to_vnodes`
-- Statically convert markdown to dioxus with `to_vnodes!` 
-- Load files directly with `from_file!`
+- (wip) Statically convert markdown to dioxus with `to_vnodes!` 
+- (wip) Load files directly with `from_file!`
+
+## Warning:
+
+- Currently, this crate uses the pulldown-cmark to html converter with no actual intermediate step to Dioxus VNodes. 
+- Content is set with `dangerous_inner_html` with no actual translation to VNodes occurring.
+- Macros are not currently implemented.
+
+For most use cases, this approach will work fine. However, if you feel brave enough to add a true Markdown to VNode converter, we'd happily coach and assist the implementation/pull request.
+
 
 ## Usage notes
 
 Translation occurs at runtime and can be expensive on first load. Use SSR and hydration to pre-render important pages. 
 
-Currently, content is set with `dangerous_inner_html` with no actual translation to VNodes occurring.
-
-## Configuration
-
-A few things are configurable:
-
-- code blocks (by default with `Codeblocks` but can be disabled for the `code` html element)
-- tables (by default with the `Table` mechanism but can be swapped out)
-- images
-- math (by default with a code block, but can be rendered with KaTeX)
-
-Inline code highlighting is given by the accompanying library `Codeblocks`
-
-All nodes are returned as a `Vec<VNode>`. If you have a specific format, you'll need to parse the streamed output.
-
-This markdown input:
-
-    # Test
-
-    Paragraph
-
-    ```rust
-    fn main() {}
-    ```
-
-Will be roughly equivalent to:
-
-```rust
-let nodes = markdown_to_vnodes(ctx, text);
-let [header, paragraph, codeblock] = &nodes[..].unwrap();
-```
-
-You can then render them directly into your site or reorganize them as you see fit:
-
-```rust
-rsx!{
-    div {
-        div { class: "left-col"
-            {header}
-            {paragraph}
-        }
-        div { class: "right-col"
-            {codeblock}
-        }
-    }
-}
-
-```
