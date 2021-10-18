@@ -5,7 +5,7 @@ Easily convert markdown into Dioxus VNodes.
 ```rust
 static Example: FC<()> = |(cx, props)| {
     let contents = include_str!("example.md");
-    cx.render(dioxus_markdown::to_vnodes(contents)?)
+    dioxus_markdown::render_markdown(cx, contents)?
 };
 ```
 
@@ -18,6 +18,8 @@ static Example: FC<()> = |(cx, props)| {
 ## Usage notes
 
 Translation occurs at runtime and can be expensive on first load. Use SSR and hydration to pre-render important pages. 
+
+Currently, content is set with `dangerous_inner_html` with no actual translation to VNodes occurring.
 
 ## Configuration
 
