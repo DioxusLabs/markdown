@@ -2,21 +2,6 @@ use dioxus::core::*;
 use dioxus::prelude::*;
 use pulldown_cmark::Parser;
 
-pub fn render_markdown<'a>(cx: Context<'a>, text: &str) -> DomTree<'a> {
-    let parser = Parser::new(text);
-
-    let mut html_buf = String::new();
-    pulldown_cmark::html::push_html(&mut html_buf, parser);
-
-    cx.render(rsx!(div {
-        dangerous_inner_html: format_args!("{}", html_buf),
-    }))
-}
-
-pub struct Markdown<'a> {
-    contents: &'a str,
-}
-
 #[derive(PartialEq, Props)]
 pub struct StaticMarkdownProps {
     contents: String,
@@ -44,3 +29,14 @@ pub struct StaticMarkdownProps {
 /// ```
 pub static StaticMarkdown: FC<StaticMarkdownProps> =
     |(cx, props)| render_markdown(cx, &props.contents);
+
+pub fn render_markdown<'a>(cx: Context<'a>, text: &str) -> DomTree<'a> {
+    let parser = Parser::new(text);
+
+    let mut html_buf = String::new();
+    pulldown_cmark::html::push_html(&mut html_buf, parser);
+
+    cx.render(rsx!(div {
+        dangerous_inner_html: format_args!("{}", html_buf),
+    }))
+}
