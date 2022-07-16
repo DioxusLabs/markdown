@@ -1,19 +1,19 @@
-# Dioxus-Markdown: convert markdown to dioxus VNodes
+# Dioxus Markdown
 
-Easily convert markdown into Dioxus VNodes.
+> Easily convert markdown into Dioxus
 
 ```rust
-static Example: FC<()> = |(cx, props)| {
-    let contents = include_str!("example.md");
-    dioxus_markdown::render_markdown(cx, contents)?
-};
+cx.render(rsx! {
+    Markdown {
+        class: "content",
+        content: include_str!("../README.md"),
+    }
+})
 ```
 
 ## Features
 
-- Convert strings to vnodes on the fly with `to_vnodes`
-- (wip) Statically convert markdown to dioxus with `to_vnodes!` 
-- (wip) Load files directly with `from_file!`
+- Convert strings to vnodes on the fly with `tvnodes`
 
 ## Warning:
 
@@ -22,9 +22,3 @@ static Example: FC<()> = |(cx, props)| {
 - Macros are not currently implemented.
 
 For most use cases, this approach will work fine. However, if you feel brave enough to add a true Markdown to VNode converter, we'd happily coach and assist the implementation/pull request.
-
-
-## Usage notes
-
-Translation occurs at runtime and can be expensive on first load. Use SSR and hydration to pre-render important pages. 
-
