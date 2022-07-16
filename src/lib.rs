@@ -1,42 +1,30 @@
-use dioxus::core::*;
+#![allow(non_snake_case)]
+
 use dioxus::prelude::*;
 use pulldown_cmark::Parser;
 
-#[derive(PartialEq, Props)]
-pub struct StaticMarkdownProps {
-    contents: String,
+#[derive(Props)]
+pub struct MarkdownProps<'a> {
+    #[props(default)]
+    id: &'a str,
+    #[props(default)]
+    class: &'a str,
+
+    content: &'a str,
 }
 
 /// Render some text as markdown.
-///
-/// # Example
-///
-/// ```rust
-///
-/// static MARKDOWN: &str = include_str!("./sample.md");
-///
-/// static App: FC<()> = |(cx, props)| {
-///     rsx(cx, div {
-///         h1 {"post"}
-///         div {
-///             class: "post-body"
-///             StaticMarkdown {
-///                 contents: MARKDOWN.to_string(),
-///             }
-///         }
-///     })
-/// }
-/// ```
-pub static StaticMarkdown: FC<StaticMarkdownProps> =
-    |(cx, props)| render_markdown(cx, &props.contents);
-
-pub fn render_markdown<'a>(cx: Context<'a>, text: &str) -> DomTree<'a> {
-    let parser = Parser::new(text);
+pub fn Markdown<'a>(cx: Scope<'a, MarkdownProps<'a>>) -> Element {
+    let parser = Parser::new(cx.props.content);
 
     let mut html_buf = String::new();
     pulldown_cmark::html::push_html(&mut html_buf, parser);
 
-    cx.render(rsx!(div {
-        dangerous_inner_html: format_args!("{}", html_buf),
-    }))
+    cx.render(rsx! {
+        div {
+            id: "{cx.props.id}",
+            class: "{cx.props.class}",
+            dangerous_inner_html: "{html_buf}"
+        }
+    })
 }
