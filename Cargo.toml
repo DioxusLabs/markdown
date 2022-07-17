@@ -7,7 +7,7 @@ edition = "2018"
 
 [dependencies]
 dioxus = { version = "0.2.4", features = ["html"] }
-pulldown-cmark = "0.9.1"
+comrak = "0.14.0"
 
 [dev-dependencies]
 dioxus = { version = "0.2.4", features = ["desktop"] }
