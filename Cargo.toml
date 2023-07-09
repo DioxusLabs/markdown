@@ -6,8 +6,8 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.2.4", features = ["html"] }
+dioxus = "0.3"
 pulldown-cmark = "0.9.1"
 
 [dev-dependencies]
-dioxus = { version = "0.2.4", features = ["desktop"] }
+dioxus-desktop = "0.3"
