@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_markdown::Markdown;
 
 fn main() {
-    dioxus::launch(app);
+    launch(app);
 }
 
 fn app() -> Element {
