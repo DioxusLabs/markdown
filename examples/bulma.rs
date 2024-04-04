@@ -2,21 +2,17 @@ use dioxus::prelude::*;
 use dioxus_markdown::Markdown;
 
 fn main() {
-    dioxus_desktop::launch(app);
+    dioxus::launch(app);
 }
 
-fn app(cx: Scope) -> Element {
-    cx.render(rsx! {
+fn app() -> Element {
+    let class = use_signal(|| String::from("content"));
+    let content = use_signal(|| String::from(include_str!("../README.md")));
+    rsx! {
         link {
             rel: "stylesheet",
-            href: "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css",
+            href: "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
         }
-        div {
-            class: "container is-fluid",
-            Markdown {
-                class: "content",
-                content: include_str!("../README.md"),
-            }
-        }
-    })
+        div { class: "container is-fluid", Markdown { class: class, content: content } }
+    }
 }

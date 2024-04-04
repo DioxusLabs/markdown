@@ -3,12 +3,14 @@
 > Easily convert markdown into Dioxus
 
 ```rust
-cx.render(rsx! {
+let class = use_signal(|| String::from("content"));
+let content = use_signal(|| String::from(include_str!("../README.md")));
+rsx! {
     Markdown {
-        class: "content",
-        content: include_str!("../README.md"),
+        class: class,
+        content: content,
     }
-})
+}
 ```
 
 ## Features
@@ -17,7 +19,7 @@ cx.render(rsx! {
 
 ## Warning:
 
-- Currently, this crate uses the pulldown-cmark to html converter with no actual intermediate step to Dioxus VNodes. 
+- Currently, this crate uses the pulldown-cmark to html converter with no actual intermediate step to Dioxus VNodes.
 - Content is set with `dangerous_inner_html` with no actual translation to VNodes occurring.
 - Macros are not currently implemented.
 
