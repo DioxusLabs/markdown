@@ -4,11 +4,10 @@
 
 ```rust
 let class = use_signal(|| String::from("content"));
-let content = use_signal(|| String::from(include_str!("../README.md")));
 rsx! {
     Markdown {
         class: class,
-        content: content,
+        content: include_str!("../README.md"),
     }
 }
 ```
