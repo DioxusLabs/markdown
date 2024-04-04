@@ -10,4 +10,4 @@ dioxus = { version = "0.5", features = ["desktop"] }
 pulldown-cmark = "0.9.3"
 
 [dev-dependencies]
-dioxus-desktop = "0.5"
+dioxus = { version = "0.5", features = ["desktop"] }
