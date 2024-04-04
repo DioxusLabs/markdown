@@ -6,8 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = "0.4"
+dioxus = { version = "0.5", features = ["desktop"] }
 pulldown-cmark = "0.9.3"
 
 [dev-dependencies]
-dioxus-desktop = "0.4"
+dioxus = { version = "0.5", features = ["desktop"] }

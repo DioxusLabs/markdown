@@ -3,28 +3,29 @@
 use dioxus::prelude::*;
 use pulldown_cmark::Parser;
 
-#[derive(Props)]
-pub struct MarkdownProps<'a> {
+#[derive(Props, Clone, PartialEq)]
+pub struct MarkdownProps {
     #[props(default)]
-    id: &'a str,
+    id: Signal<String>,
     #[props(default)]
-    class: &'a str,
+    class: Signal<String>,
 
-    content: &'a str,
+    content: ReadOnlySignal<String>,
 }
 
 /// Render some text as markdown.
-pub fn Markdown<'a>(cx: Scope<'a, MarkdownProps<'a>>) -> Element {
-    let parser = Parser::new(cx.props.content);
+pub fn Markdown(props: MarkdownProps) -> Element {
+    let content = &*props.content.read();
+    let parser = Parser::new(content);
 
     let mut html_buf = String::new();
     pulldown_cmark::html::push_html(&mut html_buf, parser);
 
-    cx.render(rsx! {
+    rsx! {
         div {
-            id: "{cx.props.id}",
-            class: "{cx.props.class}",
+            id: "{&*props.id.read()}",
+            class: "{&*props.class.read()}",
             dangerous_inner_html: "{html_buf}"
         }
-    })
+    }
 }
