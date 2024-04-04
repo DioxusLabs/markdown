@@ -7,12 +7,11 @@ fn main() {
 
 fn app() -> Element {
     let class = use_signal(|| String::from("content"));
-    let content = use_signal(|| String::from(include_str!("../README.md")));
     rsx! {
         link {
             rel: "stylesheet",
             href: "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
         }
-        div { class: "container is-fluid", Markdown { class: class, content: content } }
+        div { class: "container is-fluid", Markdown { class: class, content: include_str!("../README.md") } }
     }
 }

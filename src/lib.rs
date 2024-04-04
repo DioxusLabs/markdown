@@ -10,7 +10,7 @@ pub struct MarkdownProps {
     #[props(default)]
     class: Signal<String>,
 
-    content: Signal<String>,
+    content: ReadOnlySignal<String>,
 }
 
 /// Render some text as markdown.
