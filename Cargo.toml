@@ -4,8 +4,8 @@ version = "0.2.0"
 edition = "2021"
 
 [dependencies]
-dioxus = { git = "https://github.com/dioxuslabs/dioxus", features = ["html"] }
+dioxus = { version = "0.5.1", features = ["html"] }
 pulldown-cmark = "0.9.3"
 
 [dev-dependencies]
-dioxus = { git = "https://github.com/dioxuslabs/dioxus", features = ["desktop"] }
+dioxus = { version = "0.5.1", features = ["desktop"] }
