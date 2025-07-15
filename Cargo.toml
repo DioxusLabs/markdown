@@ -1,11 +1,20 @@
 [package]
 name = "dioxus_markdown"
-version = "0.3.0-alpha.1"
+version = "0.4.0-alpha.1"
 edition = "2021"
 
 [dependencies]
-dioxus = "0.6.0-alpha.1"
-pulldown-cmark = "0.9.3"
+dioxus = "0.6.0"
+markdown = "1.0.0"
 
-[dev-dependencies]
-dioxus = { version = "0.6.0-alpha.1", features = ["desktop"] }
+[profile]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
